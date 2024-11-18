@@ -1,0 +1,23 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: smit_postgres
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_data_smit_app:/var/lib/postgresql/data
+    env_file:
+      - ../.env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d ${POSTGRES_DB} -h ${POSTGRES_HOST}
+       -p ${POSTGRES_PORT} -U ${POSTGRES_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data_smit_app:
+
+networks:
+  smit_network:
+    driver: bridge

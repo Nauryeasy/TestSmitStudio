@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "technoairecurrent"
+version = "0.1.0"
+description = ""
+authors = ["Naury <koertyf@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.114.1"
+uvicorn = "^0.30.6"
+asyncpg = "^0.29.0"
+alembic = "^1.13.2"
+psycopg2-binary = "2.9.6"
+aiohttp = "^3.10.5"
+pydantic-settings = "^2.5.2"
+punq = "^0.7.0"
+python-dotenv = "^1.0.1"
+pytest = "^8.3.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
