@@ -14,3 +14,10 @@ class CargoDTO:
 @dataclass(frozen=True)
 class CalcCostInsuranceQuery(BaseQuery):
     cargos: list[CargoDTO]
+
+
+@dataclass(frozen=True)
+class GetTariffsQuery(BaseQuery):
+    oid: str
+    date: datetime.date
+    cargo_type: str
