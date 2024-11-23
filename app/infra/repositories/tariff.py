@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 from punq import Container
 
-from sqlalchemy import select
+from sqlalchemy import select, delete
 
 from app.domain.tariff import Tariff
 from app.infra.database import Database
@@ -19,6 +19,7 @@ class TariffRepo(BaseTariffRepo):
 
     async def _model_to_entity(self, model: TariffModel) -> Tariff:
         return Tariff(
+            oid=model.oid,
             date=model.date,
             rate=model.rate,
             cargo_type=model.cargo_type
@@ -26,6 +27,7 @@ class TariffRepo(BaseTariffRepo):
 
     async def _entity_to_model(self, entity: Tariff) -> TariffModel:
         return TariffModel(
+            oid=entity.oid,
             date=entity.date,
             rate=entity.rate,
             cargo_type=entity.cargo_type
@@ -53,3 +55,13 @@ class TariffRepo(BaseTariffRepo):
             query = self._make_query(filter)
             result = await session.scalars(query)
             return [await self._model_to_entity(item) for item in result]
+
+    async def update(self, entity: Tariff):
+        async with self.database.get_session() as session:
+            await session.merge(await self._entity_to_model(entity))
+        return entity
+
+    async def delete(self, entity: Tariff):
+        async with self.database.get_session() as session:
+            await session.execute(delete(TariffModel).where(TariffModel.oid == entity.oid))
+        return entity

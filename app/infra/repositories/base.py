@@ -31,6 +31,14 @@ class BaseRepo(ABC, Generic[T, M, F]):
     async def select(self, filter: F | None = None) -> list[T]:
         ...
 
+    @abstractmethod
+    async def update(self, entity: T) -> None:
+        ...
+
+    @abstractmethod
+    async def delete(self, entity: T) -> None:
+        ...
+
 
 class BaseTariffRepo(BaseRepo[Tariff, TariffModel, TariffFilter], ABC):
     ...

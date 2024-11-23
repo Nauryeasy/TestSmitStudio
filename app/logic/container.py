@@ -4,13 +4,14 @@ import punq
 
 from app.infra.repositories.base import BaseTariffRepo
 from app.infra.repositories.tariff import TariffRepo
-from app.logic.commands.tariff.commands import AddTariffsCommand
-from app.logic.commands.tariff.handlers import AddTariffsCommandHandler
+from app.logic.commands.tariff.commands import AddTariffsCommand, DeleteTariffCommand, UpdateTariffCommand
+from app.logic.commands.tariff.handlers import AddTariffsCommandHandler, DeleteTariffCommandHandler, \
+    UpdateTariffCommandHandler
 from app.logic.mediator import CommandMediator, QueryMediator
 from app.configs import Settings
 from app.infra.database import Database
-from app.logic.queryes.tariff.handlers import CalcCostInsuranceQueryHandler
-from app.logic.queryes.tariff.queryes import CalcCostInsuranceQuery
+from app.logic.queryes.tariff.handlers import CalcCostInsuranceQueryHandler, GetTariffsQueryHandler
+from app.logic.queryes.tariff.queryes import CalcCostInsuranceQuery, GetTariffsQuery
 
 
 @lru_cache(1)
@@ -23,8 +24,11 @@ def _initialize_container() -> punq.Container:
     container.register(punq.Container, instance=container)
 
     container.register(AddTariffsCommandHandler)
+    container.register(DeleteTariffCommandHandler)
+    container.register(UpdateTariffCommandHandler)
 
     container.register(CalcCostInsuranceQueryHandler)
+    container.register(GetTariffsQueryHandler)
 
     container.register(Settings, instance=Settings(), scope=punq.Scope.singleton)
 
@@ -32,6 +36,8 @@ def _initialize_container() -> punq.Container:
         mediator = CommandMediator()
 
         mediator.register_command(AddTariffsCommand, container.resolve(AddTariffsCommandHandler))
+        mediator.register_command(DeleteTariffCommand, container.resolve(DeleteTariffCommandHandler))
+        mediator.register_command(UpdateTariffCommand, container.resolve(UpdateTariffCommandHandler))
 
         return mediator
 
@@ -39,6 +45,7 @@ def _initialize_container() -> punq.Container:
         mediator = QueryMediator()
 
         mediator.register_query(CalcCostInsuranceQuery, container.resolve(CalcCostInsuranceQueryHandler))
+        mediator.register_query(GetTariffsQuery, container.resolve(GetTariffsQueryHandler))
 
         return mediator
 
