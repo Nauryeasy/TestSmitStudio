@@ -7,7 +7,7 @@ from uuid import uuid4
 
 @dataclass(frozen=True)
 class BaseEvent(ABC):
-    uid: str = field(
+    oid: str = field(
         default_factory=lambda: str(uuid4()),
         kw_only=True
     )
