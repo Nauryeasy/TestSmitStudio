@@ -19,6 +19,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+    networks:
+      - smit_network
 
 networks:
   smit_network:

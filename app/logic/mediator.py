@@ -3,7 +3,7 @@ from dataclasses import dataclass, field
 from typing import Type, Iterable
 
 from app.logic.commands.base import CT, BaseCommandHandler, CR
-from app.logic.events.base import ET, BaseEventHandler, ER
+from app.domain.events.base import ET, BaseEventHandler, ER
 from app.logic.exceptions.mediator import EventHandlerNotRegisteredException, CommandHandlerNotRegisteredException, \
     QueryHandlerNotRegisteredException
 from app.logic.queryes.base import QT, BaseQueryHandler, QR

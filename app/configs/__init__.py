@@ -1,9 +1,11 @@
 import os
 from app.configs.database import DataBaseSettings
 from app.configs.general import GeneralSettings
+from app.configs.message_broker import MessageBrokerSettings
 
 
-class Settings(DataBaseSettings, 
+class Settings(DataBaseSettings,
+               MessageBrokerSettings,
                GeneralSettings):
     
     def _print_value_sources(self):

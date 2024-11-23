@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Type
 
 from app.logic.commands.base import CT
-from app.logic.events.base import ET
+from app.domain.events.base import ET
 from app.logic.queryes.base import QT
 
 
